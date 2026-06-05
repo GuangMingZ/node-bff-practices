@@ -1,0 +1,31 @@
+{
+  "name": "node-bff-practices",
+  "version": "1.0.0",
+  "description": "Node.js BFF 接入层实践 Demo：中间件顺序、AsyncLocalStorage、三层限流观察模式",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "tsx watch src/app.ts",
+    "start": "npm run build && node dist/app.js",
+    "build": "tsc",
+    "demo:rate-limit": "bash scripts/demo-rate-limit.sh",
+    "demo:observation": "bash scripts/demo-observation.sh"
+  },
+  "dependencies": {
+    "@koa/router": "^12.0.1",
+    "koa": "^2.15.0",
+    "koa-bodyparser": "^4.4.1",
+    "koa-ratelimit": "^6.0.0",
+    "nanoid": "^5.0.7"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.15.0",
+    "@types/koa-bodyparser": "^4.3.12",
+    "@types/koa__router": "^12.0.4",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
