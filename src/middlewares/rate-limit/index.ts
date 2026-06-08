@@ -6,7 +6,7 @@ export const clientIPLimit = createRateLimitMiddleware({
   getId: ctx => ctx.cip,
 });
 
-export const clientQuidLimit = createRateLimitMiddleware({
+export const clientIdLimit = createRateLimitMiddleware({
   type: RateLimitType.Uid,
   getId: ctx => ctx.quid,
 });

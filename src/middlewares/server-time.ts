@@ -1,14 +1,14 @@
 import type { Middleware } from 'koa';
 
 /**
- * 必须在 clientInit 之前挂载。
- * clientInit 会向 ctx.serverTiming 写入 1_connect 等指标。
+ * 必须在 clientCtxInit 之前挂载。
+ * clientCtxInit 会向 ctx.serverTime 写入 1_connect 等指标。
  */
-export const serverTiming: Middleware = async (ctx, next) => {
+export const serverTime: Middleware = async (ctx, next) => {
   const metrics: Array<{ name: string; duration: number }> = [];
   const timers = new Map<string, { name: string; start: bigint }>();
 
-  ctx.serverTiming = {
+  ctx.serverTime = {
     add: metric => metrics.push(metric),
     startTime: name => {
       timers.set(name, { name, start: process.hrtime.bigint() });

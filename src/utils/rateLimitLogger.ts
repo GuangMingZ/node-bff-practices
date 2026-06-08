@@ -3,7 +3,7 @@ import type { ParameterizedContext } from 'koa';
 import { logger } from '../lib/logger.js';
 
 /**
- * 限流发生在 clientInit 之前，正常生命周期日志不完整。
+ * 限流发生在 clientCtxInit 之前，正常生命周期日志不完整。
  * 触发限流时手动补全 client-init / client-response 事件。
  */
 export function logRateLimitLifecycle(ctx: ParameterizedContext): void {
@@ -16,7 +16,7 @@ export function logRateLimitLifecycle(ctx: ParameterizedContext): void {
     brief: `${method} ${url}`,
     method,
     url,
-    note: '补全日志：限流发生在 clientInit 之前',
+    note: '补全日志：限流发生在 clientCtxInit 之前',
   });
 
   logger.error({

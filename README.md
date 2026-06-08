@@ -24,11 +24,11 @@ npm run dev
 src/
 ├── server.ts                 # 中间件装配（分享重点）
 ├── middlewares/
-│   ├── set-simple-client.ts  # 提取 cip/quid，必须在限流前
+│   ├── extract-client-id.ts  # 提取 cip/quid，必须在限流前
 │   ├── rate-limit/           # IP / QUID / Global 三层限流
-│   ├── server-timing.ts      # 必须在 clientInit 前
-│   ├── client-init.ts        # AsyncLocalStorage 入口
-│   └── http-context.ts       # 请求生命周期日志
+│   ├── server-time.ts        # 必须在 clientCtxInit 前
+│   ├── client-ctx-init.ts    # AsyncLocalStorage 入口
+│   └── request-context.ts    # 请求生命周期日志
 ├── lib/
 │   ├── async-context.ts      # AsyncLocalStorage 封装
 │   └── config-store.ts       # 模拟配置热更新
@@ -92,15 +92,15 @@ curl -X PATCH http://127.0.0.1:3100/admin/rate-limit/Uid \
 
 ```
 hidePoweredBy
-  → ping
-  → setSimpleClient        # 提供 cip/quid
+  → health()
+  → extractClientId        # 提供 cip/quid
   → clientIPLimit          # 三层限流
-  → clientQuidLimit
+  → clientIdLimit
   → globalLimit
   → errorHandler
-  → serverTiming           # 挂载 ctx.serverTiming
-  → clientInit             # AsyncLocalStorage.run(...)
+  → serverTime             # 挂载 ctx.serverTime
+  → clientCtxInit          # AsyncLocalStorage.run(...)
   → bodyParser
-  → httpContext            # 生命周期日志
+  → requestContext         # 生命周期日志
   → routes
 ```

@@ -3,7 +3,7 @@ export interface TimingMetric {
   duration: number;
 }
 
-export interface ServerTiming {
+export interface ServerTime {
   add(metric: TimingMetric): void;
   startTime(name: string): void;
   endTime(name: string): void;

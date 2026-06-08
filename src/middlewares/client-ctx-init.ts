@@ -10,9 +10,9 @@ function createSeqId(): string {
 
 /**
  * 建立请求上下文，并通过 AsyncLocalStorage 让深层调用透明读取 reqId 等信息。
- * 必须在 requestBodyParser / httpContext 之前执行。
+ * 必须在 requestBodyParser / requestContext 之前执行。
  */
-export const clientInit: Middleware = async (ctx, next) => {
+export const clientCtxInit: Middleware = async (ctx, next) => {
   const reqId = nanoid();
   const seqId = createSeqId();
   const method = ctx.method.toUpperCase();
@@ -32,11 +32,11 @@ export const clientInit: Middleware = async (ctx, next) => {
   const gatewayTimestamp = Number(ctx.get('x-gateway-time')) * 1000;
 
   if (!Number.isNaN(clientTimestamp) && !Number.isNaN(gatewayTimestamp)) {
-    ctx.serverTiming.add({
+    ctx.serverTime.add({
       name: '1_connect',
       duration: gatewayTimestamp - clientTimestamp,
     });
-    ctx.serverTiming.add({
+    ctx.serverTime.add({
       name: '2_gateway',
       duration: Date.now() - gatewayTimestamp,
     });

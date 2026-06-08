@@ -1,4 +1,4 @@
-import type { ServerTiming } from '../common/context.js';
+import type { ServerTime } from '../common/context.js';
 
 declare module 'koa' {
   interface DefaultContext {
@@ -7,6 +7,6 @@ declare module 'koa' {
     reqId: string;
     seqId: string;
     requestStartTime: bigint;
-    serverTiming: ServerTiming;
+    serverTime: ServerTime;
   }
 }

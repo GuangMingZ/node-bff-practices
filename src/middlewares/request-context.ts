@@ -5,9 +5,9 @@ import { logger } from '../lib/logger.js';
 
 /**
  * 请求生命周期日志。
- * 依赖 clientInit 已建立 AsyncLocalStorage 上下文。
+ * 依赖 clientCtxInit 已建立 AsyncLocalStorage 上下文。
  */
-export const httpContext: Middleware = async (ctx, next) => {
+export const requestContext: Middleware = async (ctx, next) => {
   const store = getAsyncStore();
   const start = store?.lifeInfo.startTime ?? process.hrtime.bigint();
 

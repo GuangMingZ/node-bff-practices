@@ -17,7 +17,7 @@ export function setupRoutes(app: Koa): void {
         'three-layer rate limit observation mode',
       ],
       endpoints: {
-        ping: 'GET /_ping',
+        health: 'GET /_health',
         echo: 'GET /api/echo',
         profile: 'GET /api/profile',
         rateLimitConfig: 'GET /admin/rate-limit',
@@ -37,9 +37,9 @@ export function setupRoutes(app: Koa): void {
   });
 
   router.get('/api/profile', async ctx => {
-    ctx.serverTiming.startTime('4_business');
+    ctx.serverTime.startTime('4_business');
     await new Promise(resolve => setTimeout(resolve, 30));
-    ctx.serverTiming.endTime('4_business');
+    ctx.serverTime.endTime('4_business');
 
     const store = getAsyncStore();
     logger.info({
